@@ -33,9 +33,10 @@ def calculate_similarity_score(left_numbers, right_numbers):
 
     score = 0
     for number in left_numbers:
-        score += number * right_count.get(number, 0) # multiply by no. of appearances, and by 0 if only in left list
+        score += number * right_count.get(number, 0)  # multiply by no. of appearances, and by 0 if only in left list
 
     return score
+
 
 def main():
     left, right = process_input()
