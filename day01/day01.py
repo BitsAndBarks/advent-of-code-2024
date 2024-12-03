@@ -1,4 +1,6 @@
-file_name = "input01.txt"
+from collections import Counter
+
+file_name = "input.txt"
 
 
 def process_input():
@@ -20,15 +22,27 @@ def process_input():
     return sorted(left_numbers), sorted(right_numbers)
 
 
-def calculate_total_distance():
-    left_numbers, right_numbers = process_input()
+def calculate_total_distance(left_numbers, right_numbers):
     # zip creates pairs based on the index, then get the result of the abs subtraction and returns it
     return sum([abs(left - right) for left, right in zip(left_numbers, right_numbers)])
 
 
+def calculate_similarity_score(left_numbers, right_numbers):
+    # counts occurrences in the right list
+    right_count = Counter(right_numbers)
+
+    score = 0
+    for number in left_numbers:
+        score += number * right_count.get(number, 0) # multiply by no. of appearances, and by 0 if only in left list
+
+    return score
+
 def main():
-    total = calculate_total_distance()
-    print("total:", total)
+    left, right = process_input()
+    distance = calculate_total_distance(left, right)
+    similarity = calculate_similarity_score(left, right)
+    print("total:", distance)
+    print("similarity:", similarity)
 
 
 if __name__ == "__main__":
